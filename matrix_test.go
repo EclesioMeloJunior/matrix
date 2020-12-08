@@ -75,3 +75,42 @@ func TestMatrixIsNotEqualsToAnother(t *testing.T) {
 
 	assert.False(t, a.Equals(b))
 }
+
+func TestMatrixSum(t *testing.T) {
+	a := matrix.Matrix(
+		[][]int64{
+			{1, 2, 3},
+			{1, 2, 3},
+		},
+	)
+
+	b := matrix.Matrix(
+		[][]int64{
+			{1, 2, 3},
+			{1, 2, 3},
+		},
+	)
+
+	expected := matrix.Matrix(
+		[][]int64{
+			{2, 4, 6},
+			{2, 4, 6},
+		},
+	)
+
+	c, err := a.Sum(&b)
+
+	assert.Nil(t, err)
+	assert.Equal(t, &expected, c)
+}
+
+func TestMatrixSumWhenDifferentSizes(t *testing.T) {
+	a := matrix.RandInt(3, 3)
+	b := a.Copy()
+	*b = (*b)[1:]
+
+	c, err := a.Sum(b)
+
+	assert.Nil(t, c)
+	assert.Equal(t, matrix.ErrMatrixOfDifferentSizes, err)
+}

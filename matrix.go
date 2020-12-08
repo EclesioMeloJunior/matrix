@@ -1,10 +1,14 @@
 package matrix
 
 import (
+	"errors"
 	"math/rand"
 	"reflect"
 	"time"
 )
+
+// ErrMatrixOfDifferentSizes error when a matrix has not the same rows or cols of another
+var ErrMatrixOfDifferentSizes = errors.New("Matrix have not same rows or same cols")
 
 // Matrix defines an [][]int64 type
 type Matrix [][]int64
@@ -50,7 +54,7 @@ func (m *Matrix) Equals(o *Matrix) bool {
 	return reflect.DeepEqual(m, o)
 }
 
-// Copy will a copy matrix based on root matrix
+// Copy O(r) will a copy matrix based on root matrix
 func (m *Matrix) Copy() *Matrix {
 	newM := new(Matrix)
 	*newM = make([][]int64, m.Rows())
@@ -60,6 +64,26 @@ func (m *Matrix) Copy() *Matrix {
 	}
 
 	return newM
+}
+
+// Sum O(r x c) will return a new matrix with the sum of the 2 matrix
+func (m *Matrix) Sum(o *Matrix) (*Matrix, error) {
+	if m.Rows() != o.Rows() || m.Cols() != o.Cols() {
+		return nil, ErrMatrixOfDifferentSizes
+	}
+
+	newM := new(Matrix)
+	*newM = make([][]int64, m.Rows())
+
+	for i := 0; i < m.Rows(); i++ {
+		(*newM)[i] = make([]int64, m.Cols())
+
+		for j := 0; j < m.Cols(); j++ {
+			(*newM)[i][j] = (*m)[i][j] + (*o)[i][j]
+		}
+	}
+
+	return newM, nil
 }
 
 // Zero creates a matrix R x C and all entries are 0
