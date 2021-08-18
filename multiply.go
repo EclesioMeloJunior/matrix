@@ -16,7 +16,7 @@ func (m *Matrix) MultplyByScalar(v int64) {
 // Multiply will multiply 2 matrices and return a new matrix
 func (m *Matrix) Multiply(o *Matrix) (*Matrix, error) {
 	if m.Cols() != o.Rows() {
-		return nil, errors.New("The matrix has not the same rows and columns")
+		return nil, errors.New("the matrix has not the same rows and columns")
 	}
 
 	r := new(Matrix)

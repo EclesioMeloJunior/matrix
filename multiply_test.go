@@ -28,6 +28,27 @@ func TestMulltiplyByScalar(t *testing.T) {
 	assert.Equal(t, expected, a)
 }
 
+func TestMultiplyByVector(t *testing.T) {
+	rowVector := matrix.Matrix(
+		[][]int64{
+			{1, 2, 3},
+		},
+	)
+	colVector := matrix.Matrix(
+		[][]int64{
+			{1},
+			{2},
+			{3},
+		},
+	)
+
+	expected := matrix.Matrix([][]int64{{14}})
+
+	new, err := rowVector.Multiply(&colVector)
+	assert.NoError(t, err)
+	assert.Equal(t, new, &expected)
+}
+
 func TestMultiplyByMatrix(t *testing.T) {
 	a := matrix.Matrix(
 		[][]int64{

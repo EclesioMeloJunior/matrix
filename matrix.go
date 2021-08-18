@@ -45,6 +45,12 @@ func (m *Matrix) Transpose() {
 	*m = newM
 }
 
+// func (m *Matrix) Determinat() (int64, error) {
+// 	if m.Rows() != m.Cols() {
+// 		return 0, errors.New("must be a square matrix to find the determinant")
+// 	}
+// }
+
 // Equals returns true if a matrix is equals another matrix
 func (m *Matrix) Equals(o *Matrix) bool {
 	if m.Rows() != o.Rows() || m.Cols() != o.Cols() {
