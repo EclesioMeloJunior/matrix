@@ -9,6 +9,8 @@ import (
 
 // ErrMatrixOfDifferentSizes error when a matrix has not the same rows or cols of another
 var ErrMatrixOfDifferentSizes = errors.New("Matrix have not same rows or same cols")
+var ErrNotSquared = errors.New("matrix must be squared to perform the operation")
+var ErrOutOfTheMatrix = errors.New("matrix does not contains index")
 
 // Matrix defines an [][]int64 type
 type Matrix [][]int64
@@ -25,6 +27,14 @@ func (m *Matrix) Cols() int {
 	}
 
 	return len((*m)[0])
+}
+
+func (m *Matrix) Get(i, j int) (int64, error) {
+	if i >= m.Rows() || j >= m.Cols() {
+		return 0, ErrOutOfTheMatrix
+	}
+
+	return (*m)[i][j], nil
 }
 
 // Transpose will transpose the matrix in O(r x c)
@@ -45,12 +55,6 @@ func (m *Matrix) Transpose() {
 	*m = newM
 }
 
-// func (m *Matrix) Determinat() (int64, error) {
-// 	if m.Rows() != m.Cols() {
-// 		return 0, errors.New("must be a square matrix to find the determinant")
-// 	}
-// }
-
 // Equals returns true if a matrix is equals another matrix
 func (m *Matrix) Equals(o *Matrix) bool {
 	if m.Rows() != o.Rows() || m.Cols() != o.Cols() {
@@ -70,6 +74,11 @@ func (m *Matrix) Copy() *Matrix {
 	}
 
 	return newM
+}
+
+// IsSquared returns if the matrix has the same number of rows and columns
+func (m *Matrix) IsSquared() bool {
+	return m.Rows() == m.Cols()
 }
 
 // Sum O(r x c) will return a new matrix with the sum of the 2 matrix
@@ -118,7 +127,7 @@ func RandInt(r, c int) *Matrix {
 	for i := 0; i < r; i++ {
 		(*m)[i] = make([]int64, c)
 		for j := 0; j < c; j++ {
-			(*m)[i][j] = rand.Int63n(100)
+			(*m)[i][j] = rand.Int63n(255)
 		}
 	}
 
