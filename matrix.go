@@ -101,6 +101,26 @@ func (m *Matrix) Sum(o *Matrix) (*Matrix, error) {
 	return newM, nil
 }
 
+// Sum O(r x c) will return a new matrix with the substraction values of the 2 matrix
+func (m *Matrix) Sub(o *Matrix) (*Matrix, error) {
+	if m.Rows() != o.Rows() || m.Cols() != o.Cols() {
+		return nil, ErrMatrixOfDifferentSizes
+	}
+
+	newM := new(Matrix)
+	*newM = make([][]int64, m.Rows())
+
+	for i := 0; i < m.Rows(); i++ {
+		(*newM)[i] = make([]int64, m.Cols())
+
+		for j := 0; j < m.Cols(); j++ {
+			(*newM)[i][j] = (*m)[i][j] - (*o)[i][j]
+		}
+	}
+
+	return newM, nil
+}
+
 // Zero creates a matrix R x C and all entries are 0
 func Zero(r, c int) *Matrix {
 	m := new(Matrix)
