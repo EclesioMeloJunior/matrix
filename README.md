@@ -4,13 +4,13 @@ This repository contains the operations with matrixes. The current matrix is a `
 ### Current features
 
 - [x] Sum
-- [] Substraction
+- [ ] Substraction
 - [x] Multiply
 - [x] MultiplyByScalar
 - [x] Transpose
 - [x] IsSquared
 - [x] Determinant
-- [] LU Decomposition (work in progress)
+- [ ] LU Decomposition (work in progress)
 - [x] Zero (creates a matrix R x C and all entries are 0)
 - [x] RandInt (creates a matrix R x C where all entries are choices from 0 - 255)
 
