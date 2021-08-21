@@ -4,7 +4,7 @@ This repository contains the operations with matrixes. The current matrix is a `
 ### Current features
 
 - [x] Sum
-- [ ] Substraction
+- [x] Substraction
 - [x] Multiply
 - [x] MultiplyByScalar
 - [x] Transpose
